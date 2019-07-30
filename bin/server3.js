@@ -1,11 +1,9 @@
+// bin/server3.js
 const express = require('express');
-const app = express();
 const port = 3000;
+const app = express();
 
-// Middleware  
-app.use(function(req, res, next) {  
-    res.end("Hello, I'm Middleware");  
-});
+app.use('/', require('../middlewares/app1'));
 
 app.listen(port, () => {
     console.log(`Server is listening on ${port}`);
