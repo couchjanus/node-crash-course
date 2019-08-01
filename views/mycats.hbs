@@ -1,0 +1,133 @@
+<div class="entry">
+  <h1>{{title}}</h1>
+  <div class="body">
+    {{ body }}
+  </div>
+</div>
+
+<h2>Escaped</h2>
+<span>unescaped: {{{  escapedcat }}} vs. </span>
+<span>escaped: {{ cat }}</span>
+
+<h3>Электронные cats</h3>
+<ul>
+    {{#each cats}}
+        <li>{{this}}</li>
+    {{/each}}
+</ul>
+
+<h3>Электронные cats</h3>
+<ul>
+    {{#each cats}}
+        <li>{{@index}} : {{this}}</li>
+    {{/each}}
+</ul>
+
+<h3>Электронные cats</h3>
+
+<ul class="cats_list">
+  {{#each namedCats}}
+    <li>
+    Name : {{firstName}} {{lastName}}
+    </li>
+  {{/each}}
+</ul>
+
+<h3>Электронные cats</h3>
+
+<ul class="cats_list">
+  {{#each namedCats}}
+    <li>
+        {{@index}} : 
+    {{#each this}}
+          {{@key}}: {{ this }}
+    {{/each}}
+    </li>
+  {{/each}}
+</ul>
+
+
+<h3>Electric Cats And Its Profiles</h3>
+
+<ul class="cats_list">
+  {{#each namedCats}}
+    <li>
+    Name : {{firstName}} {{lastName}}
+    {{#each profiles}}
+        <p>{{this}}</p>
+    {{else}}
+        <p class="empty">No content</p>
+    {{/each}}
+
+    </li>
+  {{/each}}
+</ul>
+
+<h3>@first и @last</h3>
+
+<h3>Электронные cats</h3>
+<ul>
+    {{#each cats}}
+        <li>{{@index}} {{ @first }} {{ @last }}</li>
+    {{/each}}
+</ul>
+
+<h3>Электронные cats</h3>
+
+<ul class="cats_list">
+  {{#each namedCats}}
+    <li> 
+    {{@key}} {{ @first }}
+    </li>
+  {{/each}}
+</ul>
+
+<h3>if isActive</h3>
+
+{{#if isActive}}
+    <button>Touch Me</button>
+{{else}}
+  No content
+{{/if}}
+
+
+<h3>Don't Touch Me</h3>
+{{#if isActive}}
+   <button>Touch Me</button>
+{{else if isInactive}}
+  <button>Don't Touch Me</button>
+{{else}}
+  No content
+{{/if}}
+
+<h2>Lorem ipsum dolor sit</h2>
+<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias, sit deserunt doloremque quos quas recusandae consequuntur optio itaque officia consectetur amet? Numquam quidem possimus ratione amet cupiditate consectetur omnis harum.
+{{#if user.admin}}
+  <button class="launch">Edit Post</button>
+{{else}}
+   <button class="login">Log in</button>
+{{/if}}
+</p>
+
+<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias, sit deserunt doloremque quos quas recusandae consequuntur optio itaque officia consectetur amet? Numquam quidem possimus ratione amet cupiditate consectetur omnis harum.
+{{#unless user.admin}}
+   <button class="login"> Log in</button>
+{{else}}
+  <button class="launch">Edit Post</button>
+{{/unless}}
+</p>
+
+<div class="entry">
+  {{#unless license}}
+  <h3 class="warning">WARNING: This entry does not have a license!</h3>
+  {{/unless}}
+</div>
+
+
+
+<!-- content goes here -->
+<p>Node.js is a non-blocking I/O for scalable apps.</p>
+{{! @todo change this to a class}}
+{{!-- add the example on {{#if}} --}}
+<p id="footer">Copyright 2020 Cool</p>
+

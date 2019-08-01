@@ -1,58 +1,29 @@
-// routes/web1.js
+// routes/web3.js
 const express = require('express');
 const path = require('path');
-
 const router = new express.Router();
 
+router.get('/pug', (req, res) => {
+    res.render('pug', { title: 'Hey Pug', message: 'Hello there Pug!'});
+});
+   
 router.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname + '/../public/index.html'));
+    res.render('pages/home/index', { title: 'Me And My Cats Main Page', message: 'Hello there it is Me And My Cats Main Page!'});
 });
-
-router.get('/mycats', (req, res) => {
-    res.render('mycats', 
-    {
-        title: "Me And My Cats",
-        body: "The Comprehensive Book on Me And My Cats",
-        cat: '<strong>Ruby Cat</strong>',
-        escapedcat: '<strong>Ruby Cat</strong>',
-        cats: ['Cool Cat', 'Ruby Cat', 'Noob Cat'],
-        namedCats: [
-            {firstName:"Ritesh",lastName:"Kumar", profiles: []},
-            {firstName:"John",lastName:"Doe", profiles: []}
-        ],
-        user: { admin: true }
-        
-    });
-});
-
-router.get('/categories', (req, res) => {
-    res.render("categories.hbs", {
-        title: "Categories",
-        categories: ['php', 'node', 'ruby'],
-        escapearr: ['<a>a</a>', '<i>italic</i>', '<strong>bold</strong>']
-    });
-});
-
 
 router.get('/about', (req, res) => {
-    res.render('about', { title: 'About Me And My Cats' });
-});
-
-  
-router.get('/contact', (req, res) => {
-    res.render("contact", {
-        title: "Contact Me or My Cats",
-        emailsVisible: true,
-        emails: ["gavgav@my.cat", "mioaw@my.dog"],
-        phone: "+1234567890"
+    res.render('pages/about/index', { 
+        title: 'About Me And My Cats', 
+        message: 'Hello there Pug Layout!'
     });
 });
-  
-router.get('/catsblog', (req, res) => {
-    res.render("catsblog.hbs", {
+
+router.get('/blog', (req, res) => {
+    res.render("pages/blog/index", {
         title: "Peculiar Cats Blog",
-        items: [
+        posts: [
             {
+                id: 0,
                 title: "Two Funny Cat Jokes",
                 story: {
                   intro: "Two female cats are sitting on the fence passing the time",
@@ -63,6 +34,7 @@ router.get('/catsblog', (req, res) => {
                 ]
               },
               {
+                id: 1,
                 title: "Ten Funny Cat One-liners",
                 story: {
                   intro: "What do you get when you cross a chick with an alley cat?",
@@ -73,6 +45,7 @@ router.get('/catsblog', (req, res) => {
                 ]
               },
               {
+                id: 2,
                 title: "How To Give a Cat a Pill",
                 story: {
                   intro: "Pick cat up and cradle it in the crook of your left arm as if holding a baby",
@@ -96,15 +69,9 @@ router.get('/catsblog', (req, res) => {
 });
 
 
-
-router.get('/500', function(req, res) {
-    res.sendFile(path.join(__dirname + '/../public/500.html'));
-});
-
 router.get('/errors', function(req, res) {
     res.sendFile(path.join(__dirname + '/../public/errors.html'));
 });
-
 
 
 module.exports = router;

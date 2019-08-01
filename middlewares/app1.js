@@ -1,40 +1,46 @@
 // middlewares/app1.js
+
 const express = require('express');
 const path = require('path');
+const hbs = require('hbs')
+
+const router = require('../routes/web1');
+
+const errorhandler = require('errorhandler');
+const notifier = require('node-notifier');
+
+const ehandler = require('../middlewares/ehandler');
+
 const app = express();
 
-// ========================================
 app.use('/static', express.static(__dirname + '/../public/assets'));
 
-// Middleware  
-app.use(function(req, res, next) {
-    if (req.url == '/') {
-        res.sendFile(path.join(__dirname + '/../public/index.html'));
-    } else {
-      next();
-    }
-});
-  
-// Middleware
-app.use(function(req, res, next) {
-    if (req.url == '/about') {
-      res.sendFile(path.join(__dirname + '/../public/about.html'));
-    } else {
-      next();
-    }
-});
 
-// Middleware
-app.use(function(req, res, next) {
-    if (req.url == '/contact') {
-      res.sendFile(path.join(__dirname + '/../public/contact.html'));
-    } else {
-      next();
-    }
-});
+app.set('view engine', 'hbs');
+hbs.registerPartials(__dirname + "/../views/partials");
+app.set('views', path.join(__dirname, '/../views'));
 
-app.use(function(req, res) {
-    res.status(404).end("<h1>What you want from me???</h1>");
-});
+
+app.use('/', router);
+
+// development error handler will print stacktrace
+// console.log(process.env.NODE_ENV);
+if (process.env.NODE_ENV === 'development') {
+    // only use in development
+    // app.use(errorhandler());
+    app.use(errorhandler({ log: errorNotification }));
+}
+ 
+function errorNotification (err, str, req) {
+  var title = 'Error in ' + req.method + ' ' + req.url;
+ 
+  notifier.notify({
+    title: title,
+    message: str
+  });
+}
+
+// error handlers
+app.use('/', ehandler);
 
 module.exports = app;

@@ -1,0 +1,20 @@
+doctype html
+html
+    head
+        meta(charset = 'utf-8')
+        meta(name='viewport', content="initial-scale=1.0, width=device-width")
+        include ./shared/styles
+        block styles
+        block title
+    body.text-center
+        .cover-container.d-flex.w-100.h-100.p-3.mx-auto.flex-column
+            include ./shared/block-header
+            block header
+            
+            main(role="main" class="inner cover")
+                block content
+            
+            include ./shared/block-footer
+            block footer
+
+            block scripts

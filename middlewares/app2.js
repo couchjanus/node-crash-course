@@ -1,42 +1,54 @@
 // middlewares/app2.js
+
 const express = require('express');
 const path = require('path');
+const expressHbs = require("express-handlebars");
+const hbs = require('hbs')
+
+const router = require('../routes/web2');
+
+const errorhandler = require('errorhandler');
+const notifier = require('node-notifier');
+
+const ehandler = require('../middlewares/ehandler');
+
 const app = express();
 
 app.use('/static', express.static(__dirname + '/../public/assets'));
 
-app.get('/', function(req, res, next) {
-    console.log('Домашняя страница');
-    next();
-});
+// устанавливаем настройки для файлов layout
+app.engine("hbs", expressHbs(
+    {
+        layoutsDir: "views/layouts",
+        defaultLayout: "layout",
+        extname: "hbs"
+    }
+))
 
-// app.get('/', function (req, res) {
-//     console.log('Домашняя страница');
-// });
+app.set('view engine', 'hbs');
+hbs.registerPartials(__dirname + "/../views/partials");
+app.set('views', path.join(__dirname, '/../views'));
 
-// // vs.
+app.use('/', router);
 
-// app.use('/', function (req, res, next) {
-//     if (req.method !== 'GET' || req.url !== '/')
-//       return next();
-// });
+// development error handler will print stacktrace
+// console.log(process.env.NODE_ENV);
+if (process.env.NODE_ENV === 'development') {
+    // only use in development
+    // app.use(errorhandler());
+    app.use(errorhandler({ log: errorNotification }));
+}
+ 
+function errorNotification (err, str, req) {
+  var title = 'Error in ' + req.method + ' ' + req.url;
+ 
+  notifier.notify({
+    title: title,
+    message: str
+  });
+}
 
-
-
-app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname + '/../public/index.html'));
-});
-  
-app.get('/about', function(req, res) {
-    res.sendFile(path.join(__dirname + '/../public/about.html'));
-});
-
-app.get('/contact', function(req, res) {
-    res.sendFile(path.join(__dirname + '/../public/contact.html'));
-});
-
-app.get('/*', function(req, res) {
-    res.status(404).end("<h1>What you want from me???</h1>");
-});
+// error handlers
+app.use('/', ehandler);
 
 module.exports = app;

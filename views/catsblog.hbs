@@ -1,0 +1,56 @@
+<h1>{{ title }}</h1>
+{{#each items}}
+<div class="entry">
+  <h2>{{ this.title}}</h2>
+  {{#with this.story}}
+    <div class="intro">{{{intro}}}</div>
+    <div class="body">{{{body}}}</div>
+  {{/with}}
+</div>
+  <div class="comments">
+  <h2>Comments</h2>
+  {{#each this.comments}}
+    <div class="comment">
+      <h2>{{subject}}</h2>
+      {{ body}}
+    </div>
+    {{else}}
+
+   <h2>No comments yet...</h2>
+
+  {{/each}}
+</div>
+{{/each}}
+
+
+<h1>{{ title }}</h1>
+{{#each items}}
+{{log "Look at me!" @index}}
+
+<div class="entry">
+  {{#with this}}
+  <h2>{{ title }}</h2>
+  {{#with story}}
+    <div class="intro">{{{intro}}}</div>
+    <div class="body">{{{body}}}</div>
+  {{/with}}
+</div>
+  <div class="comments">
+  <h2>Comments</h2>
+  {{#each comments}}
+    <div class="comment">
+      <h2>{{subject}}</h2>
+      {{ body}}
+    </div>
+    {{else}}
+   <h2>No comments yet...</h2>
+  {{/each}}
+{{/with}}
+</div>
+{{/each}}
+
+
+{{{{raw-helper}}}}
+  {{bar}}
+{{{{/raw-helper}}}}
+

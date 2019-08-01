@@ -1,0 +1,14 @@
+extends ../../layouts/app
+block title
+    title!= title
+block content
+    h1.cover-heading
+        title
+
+    each val in posts
+        - var ref = "blog/" + val.id
+            h2
+                a.alist(href=ref)= val.title
+    
+            p!= val.story.intro
+            div!= val.story.body
