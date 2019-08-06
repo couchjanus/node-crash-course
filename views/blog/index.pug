@@ -1,0 +1,14 @@
+extends ../layouts/app
+block title
+    #{title}
+block content
+    .col-md-8.blog-main
+        h2.pb-4.mb-4.font-italic.border-bottom From the Firehose
+        h2= title
+            each val in posts
+                - var ref = "blog/" + val._id
+                h2
+                    a.alist(href=ref)= val.title
+                            
+    aside.col-md-4.blog-sidebar
+        include ../layouts/shared/aside        

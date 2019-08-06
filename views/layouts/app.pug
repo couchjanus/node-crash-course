@@ -6,13 +6,14 @@ html
         include ./shared/styles
         block styles
         block title
-    body.text-center
+    body
         .cover-container.d-flex.w-100.h-100.p-3.mx-auto.flex-column
             include ./shared/block-header
             block header
-            
-            main(role="main" class="inner cover")
-                block content
+    
+            main(role="main" class="container")
+                .row
+                    block content
             
             include ./shared/block-footer
             block footer

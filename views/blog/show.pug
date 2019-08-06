@@ -1,0 +1,14 @@
+extends ../layouts/app
+block title
+    #{title}
+block content
+    .col-md-8.blog-main
+        h3.pb-4.mb-4.font-italic.border-bottom From the Madhose
+
+        .blog-post
+            h2.blog-post-title= post.title
+            p.blog-post-meta= post.updated_at
+            hr
+            p!= post.content
+    aside.col-md-4.blog-sidebar
+        include ../layouts/shared/aside

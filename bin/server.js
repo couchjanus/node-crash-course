@@ -1,103 +1,42 @@
+// bin/server.js
+'use strict';
+require('dotenv').config();
 const express = require('express');
 const app = express();
-const port = 3000;
 
-// ========================================
-app.get('/', (request, response) => {
-  response.send('Hello from Express!');
+app.use('/', require('../middlewares/app'));
+
+// const MongoClient = require('mongodb').MongoClient;
+
+// const URL = 'mongodb://localhost:27017';
+
+// // Для подключения к серверу применяется метод connect():
+// MongoClient.connect(URL, {useNewUrlParser:true}, (err, client) => {
+//     // Если ошибки нет, можем взаимодействовать с сервером через объект client.
+//     console.log('Connected correctly to server.');      
+//     // Если при подключении возникли ошибки, то мы можем использовать значение err для получения ошибки.
+//     if (err) { 
+//         return console.log(err);
+//     }
+//     // Закрытие соединения с базой данных
+//     client.close();
+// });
+        
+// MongoClient.connect(URL, {useNewUrlParser:true}, (err, client) => {
+//   if (err) { 
+//     return console.log(err);
+//   }
+//   const db = client.db('peculiar');
+//   console.log('Connected correctly to server.');
+//   let collections = db.collection('posts');
+//   collections.insertOne({title: 'First Post', updated_at: new Date(),content:'Exercitationem in occaecati. Sed ut et inventore ipsa. Est officia autem harum. Fugiat voluptas facere.'}, (err, result) => {
+//     collections.find({title: 'First Post'}).toArray((err, docs) => {
+//       console.log(docs[0]);
+//       client.close();
+//     });
+//   });
+// });
+
+app.listen(process.env.APP_PORT, () => {
+    console.log(`Server is listening on ${process.env.APP_PORT}`);
 });
-// ========================================
-
-const server = app.listen(port, () => {
-}).on('listening', () => {
-    const host = server.address().address;
-    const port = server.address().port;
-    console.log(`Server running at http://${host}:${port}/`);
-});
-
-// ========================================
-// const server = app.listen(port, () => {
-//     const host = server.address().address;
-//     const port = server.address().port;
-//     console.log(`Server running at ${host}:${port}/`);
-// });
-// ========================================
-// Perform a GET Request
-// const options = {
-//     host: 'localhost',
-//     port: 3000,
-// }
-
-// const server = app.listen(options, () => {
-//     const host = server.address().address;
-//     const port = server.address().port;
-//     console.log(`Server running at ${host}:${port}/`);
-// })
-// ========================================
-// app.get("/", function(request, response){
-//     response.send("<h1>Главная страница</h1>");
-// });
-
-// app.get("/about", function(request, response){
-//     response.send("<h1>О сайте</h1>");
-// });
-
-// app.get("/contact", function(request, response){
-//     response.send("<h1>Контакты</h1>");
-// });
-
-// app.listen(port, () => {
-//   console.log(`Server is listening on ${port}`);
-// });
-
-// ========================================
-
-// app.get("/", function(request, response){
-//     response.send("<h1>Главная страница</h1>");
-// });
-
-// app.get("/about", function(request, response){
-//     response.send("<h1>О сайте</h1>");
-// });
-
-// app.get("/contact", function(request, response){
-//     response.send("<h1>Контакты</h1>");
-// });
-
-// app.get('*', function(request, response){
-//     // response.send('What you want from me???');
-//     // response.status(404).end();
-//     response.send('What you want from me???', 404);
-// });
-
-// app.listen(port, () => {
-//     console.log(`Server is listening on ${port}`);
-// });
-
-// ========================================
-
-// const path = require('path');
-
-// app.get("/", function(request, response){
-//     response.sendFile(path.join(__dirname + '/../public/index.html'));
-// });
-
-// app.get("/about", function(request, response){
-//     response.sendFile(path.join(__dirname + '/../public/about.html'));
-// });
-
-// app.get("/contact", function(request, response){
-//     response.set('Content-Type', 'text/html');
-//     response.set('Cache-control', 'no-cache');
-//     response.status(200).sendFile(path.join(__dirname + '/../public/contact.html'));
-// });
-
-// app.get('*', function(request, response){
-//     // response.send('What you want from me???');
-//     // response.status(404).end();
-//     response.status(404).send('What you want from me???');
-// });
-
-// app.listen(port, () => {
-//     console.log(`Server is listening on ${port}`);
-// });
