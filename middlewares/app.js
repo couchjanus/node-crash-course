@@ -2,28 +2,25 @@
 const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
+const bodyParser = require('body-parser');
 
 const router = require('../routes/index');
 const errorhandler = require('errorhandler');
 const notifier = require('node-notifier');
 const ehandler = require('../middlewares/ehandler');
 
-const db = require('../database/db');
+const mongoose = require('../database/db');
 
 const app = express();
+
+app.use(express.json());
 
 app.use('/static', express.static(__dirname + '/../public/assets'));
 app.set('views', path.join(__dirname, '/../views'));
 app.set('view engine', 'pug');
 
-db.connect(`mongodb://localhost:27017`, (err) => {
-  if (err) {
-    console.log('Unable to connect to MongoDB.');
-    process.exit(1);
-  } else {
-    console.log('Connected to MongoDB Successful!');
-  }
-});
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/', router);
 

@@ -1,32 +1,20 @@
-const models = require('../models');
-
-// module.exports = {
-
-//   index: (req, res) => {
-//     res.render('blog/index', { title: 'Blog List', posts: '' });
-//   },
-
-//   show: (req, res) => {
-//     res.render('blog/show', { title: 'Show Blog', post: '' });
-//   },
-  
-// }
+const models = require("../entities");
 
 module.exports = {
-  index: (req, res) => {
-    models.Post.all((err, docs) => {
-        res.render('blog/index', { 
-            title: 'Post List',
-            posts: docs 
-        });
+
+  index: (req, res, next) => {
+    models.Post.find().find()
+    .exec((err, posts) => {
+        if (err) { return next(err); }
+        res.render('blog/index', { title: 'Post List', posts:  posts});
     });
   },
-
-  show: (req, res) => {
-    models.Post.detail(req.params.id, (err, docs) => {
+  
+    show: (req, res) => {
+    models.Post.findById(req.params.id, (err, post) => {
         res.render('blog/show', { 
             title: 'Post Detail',
-            post: docs 
+            post: post 
         });
     });
   },

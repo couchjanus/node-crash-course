@@ -1,0 +1,35 @@
+doctype html
+html(lang='en')
+
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+    meta(name='description', content='')
+    meta(name='author', content='')
+
+    title Admin - Peculiar Site
+
+    // Page level plugin CSS
+    include shared/admin/styles.pug
+
+  body
+    include shared/admin/nav.pug
+    .container-fluid
+      .row
+        include shared/admin/sidebar.pug
+        main(role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4")
+
+          .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pt-3.pb-2.mb-3.border-bottom
+            h1.h2 Dashboard
+            .btn-toolbar.mb-2.mb-md-0
+              .btn-group.mr-2
+                button(type="button" class="btn btn-sm btn-outline-secondary") Share
+                button(type="button" class="btn btn-sm btn-outline-secondary") Export
+              button(type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle") This week
+
+          block content
+    include shared/scripts.pug
+
+    // Custom scripts for this page
+    //- include shared/admin/js/custom.pug

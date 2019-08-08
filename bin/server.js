@@ -4,38 +4,55 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 
-app.use('/', require('../middlewares/app'));
+// =============Mongoose===================
+// const mongoose = require('mongoose');
 
-// const MongoClient = require('mongodb').MongoClient;
+// mongoose.connect('mongodb://localhost/test', {useNewUrlParser: true});
+// const db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'connection error:'));
+// db.once('open', function() {
+//     // we're connected!
+//     console.log("we're connected!");
+// });
 
-// const URL = 'mongodb://localhost:27017';
+// =============Collback===================
+// const uri = 'mongodb://localhost/test';
+// const options = {
+//     useNewUrlParser: true
+// };
 
-// // Для подключения к серверу применяется метод connect():
-// MongoClient.connect(URL, {useNewUrlParser:true}, (err, client) => {
-//     // Если ошибки нет, можем взаимодействовать с сервером через объект client.
-//     console.log('Connected correctly to server.');      
-//     // Если при подключении возникли ошибки, то мы можем использовать значение err для получения ошибки.
-//     if (err) { 
-//         return console.log(err);
+// mongoose.connect(uri, options, (err) => {
+//     // Check error in initial connection. 
+//     // There is no 2nd param to the callback.    
+//     if (err) {
+//         console.error.bind(console, 'connection error:');
+//         throw err;
 //     }
-//     // Закрытие соединения с базой данных
-//     client.close();
+//     console.log('Mongoose Successfully connected');    
 // });
-        
-// MongoClient.connect(URL, {useNewUrlParser:true}, (err, client) => {
-//   if (err) { 
-//     return console.log(err);
-//   }
-//   const db = client.db('peculiar');
-//   console.log('Connected correctly to server.');
-//   let collections = db.collection('posts');
-//   collections.insertOne({title: 'First Post', updated_at: new Date(),content:'Exercitationem in occaecati. Sed ut et inventore ipsa. Est officia autem harum. Fugiat voluptas facere.'}, (err, result) => {
-//     collections.find({title: 'First Post'}).toArray((err, docs) => {
-//       console.log(docs[0]);
-//       client.close();
-//     });
-//   });
-// });
+
+// =============Promise===================
+
+// const uri = 'mongodb://localhost/test';
+// const options = {
+//     useNewUrlParser: true
+// };
+
+// mongoose.connect(uri, options).then(() => { 
+//     // ready to use. 
+//     // The `mongoose.connect()` promise resolves to undefined.  
+//     console.log('The `mongoose.connect()` promise resolves to undefined');    
+//     },
+//     err => { 
+//         // handle initial connection error
+//         console.error.bind(console, 'handle initial connection error:');
+//         throw err;
+//     }
+// );
+
+// ================================
+
+app.use('/', require('../middlewares/app'));
 
 app.listen(process.env.APP_PORT, () => {
     console.log(`Server is listening on ${process.env.APP_PORT}`);

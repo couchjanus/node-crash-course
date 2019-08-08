@@ -1,35 +1,39 @@
+// database/db.js
 require('dotenv').config();
-const MongoClient = require('mongodb').MongoClient;
+const mongoose = require('mongoose');
 
-let state = {
-  db: null,
+const options = {
+    useNewUrlParser: true
 };
 
-const dbName = process.env.APP_DB || 'peculiar';
+const DB_CONNECTION = process.env.DB_CONNECTION || 'mongodb://localhost:27017';
+const DB_NAME = process.env.DB_NAME || 'peculiar';
+ 
+// ================Collback=================
+// mongoose.connect(DB_CONNECTION + '/' + DB_NAME, options, 
+//    (err) => {
+//     if (err) throw err;
+//     console.log('Mongoose Successfully connected');
+// });
 
-module.exports = {
+// ================Promise==================
+// mongoose.connect(DB_CONNECTION + '/' + DB_NAME, options).then(() => {
+//   console.log('The `mongoose.connect()` promise resolves to undefined');    
+//     err => { 
+//         // handle initial connection error
+//         console.error.bind(console, 'handle initial connection error:');
+//         throw err;
+//     } 
+// });
 
-  connect: (url, done) => {
-    if (state.db) return done();
+// ================global.Promise==================
+mongoose.Promise = global.Promise;
 
-    MongoClient.connect(url, {useNewUrlParser:true}, (err, client) => {
-      if (err) return done(err);
-      state.db = client.db(dbName);
-      done();
-    });
-  },
+mongoose.connect(
+  DB_CONNECTION + '/' + DB_NAME, options)
+  // Когда ошибки не возникает, выводим сообщение об успешном завершении работы на консоль.
+  .then(() => console.log('Mongoose Successfully connected with promise!'))
+  // Если при подключении к базе данных возникает ошибка, генерируется исключение и вся дальнейшая обработка прекращается.
+  .catch((err) => console.error(err));
 
-  get: () => {
-    return state.db;
-  },
-
-  close: (done) => {
-    if (state.db) {
-      state.db.close((err, result) => {
-        state.db = null;
-        state.mode = null;
-        done(err);
-      });
-    }
-  },
-};
+module.exports = mongoose;
