@@ -26,42 +26,6 @@ module.exports = {
         res.render('admin/categories/form', { title: 'Create Category', breadcrumb: 'Add New Category'});
     },
 
-// create_post: (req, res, next) => {
-//     let category = new models.Category(
-//       { name: req.body.name }
-//     );
-//     models.Category.findOne({ 'name': req.body.name })
-//     .exec( function(err, found_category) {
-//         console.log('found_category: '+found_category);
-//         if (err) { return next(err); }
-//         if (found_category) {
-//             res.redirect(found_category.url);
-//         } else {
-//             category.save(function (err) {
-//                 if (err) { return next(err); }
-//                 res.redirect('/admin/categories');
-//             });
-//         }
-//     });
-// },
-
-// create_post: (req, res, next) => {
-//     // name must be not empty
-//     check(req.body.name).exists();
-    
-//     const errors = validationResult(req);
-//     if (!errors.isEmpty()) {
-//         return res.status(422).json({ errors: errors.array() });
-//     }
-    
-//     models.Category.create({
-//             name: req.body.name,
-//     }).then(
-//         () => {
-//             res.redirect('/admin/categories');
-//         }
-//     );
-// },
 
     create_post: (req, res, next) => {
 

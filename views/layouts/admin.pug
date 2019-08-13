@@ -16,6 +16,12 @@ html(lang='en')
   body
     include shared/admin/nav.pug
     .container-fluid
+      if errors
+        .alert.alert-danger
+          a.close(href='#', data-dismiss='alert', aria-label='close') ×
+          for error in errors
+            div=error.msg 
+
       .row
         include shared/admin/sidebar.pug
         main(role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4")

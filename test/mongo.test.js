@@ -4,7 +4,7 @@ let url = 'mongodb://localhost:27017/peculiar';
 
 describe("Use connect method to connect to the Server", function() {
     it("Тестируем соединение с MongoDB", function() {
-        MongoClient.connect(url, (err, db) => {
+        MongoClient.connect(url, { useNewUrlParser: true }, (err, db) => {
             assert.equal(null, err);
             db.close();
           });

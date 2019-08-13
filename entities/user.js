@@ -4,11 +4,14 @@ const Schema = mongoose.Schema;
 
 // define a schema
 const userSchema = new Schema({
-  username: String,
+  username:  {
+    type: String,
+    required: true,
+  },
   email: {
       type: String,
       required: true,
-      
+      unique:true
   },
   hash: String,
   salt: String,
@@ -16,15 +19,40 @@ const userSchema = new Schema({
   name: {
       first: String,
       last: String
-    },
+  },
   age: Number,
   bio: String,
-  image: String,
-  
+  avatar: Buffer,  
+  twitter: {
+    type: String,
+    validate: {
+        validator: function(text) {
+            return text.indexOf('https://twitter.com/') === 0;
+        },
+        message: 'Twitter handle must start with https://twitter.com/'
+    }
+  },
+  facebook: {
+      type: String,
+      validate: {
+          validator: function(text) {
+              return text.indexOf('https://www.facebook.com/') === 0;
+          },
+          message: 'Facebook must start with https://www.facebook.com/'
+      }
+  },
+  linkedin: {
+      type: String,
+      validate: {
+          validator: function(text) {
+              return text.indexOf('https://www.linkedin.com/') === 0;
+          },
+          message: 'LinkedIn must start with https://www.linkedin.com/'
+      }
+  },
 }, 
 {
-    timestamps: true
-    // timestamps: { createdAt: 'created_at', updatedAt: 'update_at' },
+    timestamps: { createdAt: 'created_at', updatedAt: 'update_at' },
 });
 
 // userSchema.virtual('fullName').get(function () {
