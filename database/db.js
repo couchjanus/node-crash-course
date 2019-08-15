@@ -18,4 +18,5 @@ mongoose.connect(
   .then(() => console.log('Mongoose Successfully Connected With Global Promise!'))
   .catch((err) => console.error(err));
 
+
 module.exports = mongoose;

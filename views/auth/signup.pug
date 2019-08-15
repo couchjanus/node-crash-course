@@ -1,0 +1,23 @@
+extends ../layouts/app
+
+block content
+  .col-sm-9.col-md-7.col-lg-5.mx-auto
+    .card.card-signin.my-5
+      .card-body
+        h3.card-title.text-center Sign Up
+        form(class='form-signin', action='/signup', method='POST')
+          input(type='hidden', name='_csrf', value=_csrf)
+          .form-label-group
+            input(type="email" id="inputEmail" name='email' class="form-control" placeholder="Email address" required autofocus)
+            label(for="inputEmail") Email address
+
+          .form-label-group
+            input(type="password" id="inputPassword" name='password' class="form-control" placeholder="Password" required)
+            label(for="inputPassword" class="control-label") Password
+          .form-label-group
+            input(class='form-control', id='confirmPassword', type='password', name='confirmPassword', placeholder='Confirm Password', required)
+            label(for="confirmPassword" class="control-label") Confirm Password
+
+          button(class="btn btn-lg btn-primary btn-block text-uppercase" type="submit") 
+            i.fas.fa-user-plus
+            | Signup
