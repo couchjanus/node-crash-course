@@ -1,7 +1,8 @@
 // const debug = require('debug')('app:passport');
-const passport = require('passport');// Simple and elegant authentication library for node.js.
+const passport = require('passport')
+  , LocalStrategy = require('passport-local').Strategy;
+
 // const request = require('request');// Simplified HTTP request library.
-const {Strategy: LocalStrategy} = require('passport-local');
 // const {Strategy: FacebookStrategy} = require('passport-facebook');
 // const {Strategy: TwitterStrategy} = require('passport-twitter');
 // const {Strategy: GitHubStrategy} = require('passport-github');
@@ -18,7 +19,7 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-    User.findById(id, (err, user) => {
+    models.User.findById(id, (err, user) => {
         done(err, user);
     });
 });
@@ -27,23 +28,23 @@ passport.deserializeUser((id, done) => {
  * Sign in using Email and Password.
  */
 passport.use('local', new LocalStrategy({usernameField: 'email'}, (email, password, done) => {
-    models.User.findOne({email: email.toLowerCase()}, (err, user) => {
-        if (err) {
-            return done(err);
-        }
-        if (!user) {
-            return done(null, false, {msg: `Email ${email} not found.`});
-        }
-        user.comparePassword(password, (err, isMatch) => {
-            if (err) {
-                return done(err);
-            }
-            if (isMatch) {
-                return done(null, user);
-            }
-            return done(null, false, {msg: 'Invalid email or password.'});
-        });
-    });
+  models.User.findOne({email: email.toLowerCase()}, (err, user) => {
+      if (err) {
+          return done(err);
+      }
+      if (!user) {
+          return done(null, false, {msg: `Email ${email} not found.`});
+      }
+      user.comparePassword(password, (err, isMatch) => {
+          if (err) {
+              return done(err);
+          }
+          if (isMatch) {
+              return done(null, user);
+          }
+          return done(null, false, {msg: 'Invalid email or password.'});
+      });
+  });
 }));
 
 /**

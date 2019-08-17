@@ -125,6 +125,7 @@ module.exports = {
                     if (err) {
                         return next(err);
                     }
+                    req.flash('success', {msg: 'Account created successfully! And You are logged in.'});
                     res.redirect('/');
                 });
             });

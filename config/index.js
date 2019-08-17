@@ -12,6 +12,9 @@ const PORT =
 const DB_CONNECTION = process.env.DB_CONNECTION || 'mongodb://localhost:27017';
 const DB_NAME = process.env.DB_NAME || 'peculiar';
 
+const SESSION_DB_NAME = process.env.SESSION_DB_NAME || 'session';
+const SESSION_COLLECTION = process.env.SESSION_COLLECTION || 'mySessions';
+
 const SESSION_SECRET = process.env.SESSION_SECRET || 'secret_key';
 const SESSION_KEY = process.env.SESSION_KEY || 'cid';
 
@@ -41,18 +44,18 @@ const config = {
     connection: DB_CONNECTION,
     useUnifiedTopology: true,
   },
+
   session: {
     secret: SESSION_SECRET,
-    key: SESSION_KEY
+    key: SESSION_KEY,
+    db: SESSION_DB_NAME,
+    collection: SESSION_COLLECTION
   },
   timezone: process.env.TZ,
   // smptHost: 'smtp.ethereal.email',
   // smptPort: 587,
   // smtpUser: 'zb6vidra5zafwtea@ethereal.email',
   // smtpPass: '9rZTDxkZRvAeWZ9GWj',
-  
-
-  
 
   maxAttempts: 3,// process.env.MAX_LOGIN_ATTEMPTS,
   lockoutHours: 60 * 60 * 1000, //process.env.LOGIN_ATTEMPTS_LOCKOUT_HOURS * 60 * 60 * 1000,
